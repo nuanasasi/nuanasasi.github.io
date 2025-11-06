@@ -30,35 +30,14 @@
     header p {
       color: #555;
       font-size: 1em;
+      margin-bottom: 15px;
+    }
+
+    /* 抖音主页按钮放到标题下方 */
+    .douyin-top {
       margin-bottom: 30px;
     }
-
-    img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      margin-bottom: 40px;
-    }
-
-    .wechat {
-      margin-bottom: 40px;
-    }
-    .wechat img {
-      width: 220px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-    .wechat img:hover {
-      transform: scale(1.05);
-    }
-
-    .douyin {
-      margin-bottom: 60px;
-    }
-    .douyin a {
+    .douyin-top a {
       text-decoration: none;
       color: white;
       background: linear-gradient(90deg, #ff0050, #7000ff);
@@ -68,9 +47,33 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
-    .douyin a:hover {
+    .douyin-top a:hover {
       transform: scale(1.08);
       box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+
+    /* 简历图片放大 */
+    img {
+      max-width: 95%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 40px;
+    }
+
+    /* 微信二维码放大并保持居中 */
+    .wechat {
+      margin-bottom: 60px;
+    }
+    .wechat img {
+      width: 260px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .wechat img:hover {
+      transform: scale(1.05);
     }
 
     .popup {
@@ -116,18 +119,17 @@
   <header>
     <h1>李嘉 · 新媒体运营</h1>
     <p>作品集与简历展示</p>
+    <div class="douyin-top">
+      <a id="douyinBtn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k" target="_blank">
+        🎬 访问我的抖音主页
+      </a>
+    </div>
   </header>
 
   <img id="resumeImg" src="resume.png" alt="李嘉个人简历">
 
   <div class="wechat">
     <img id="wechatImg" src="wechat.png" alt="微信二维码" onclick="showPopup()">
-  </div>
-
-  <div class="douyin">
-    <a id="douyinBtn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k" target="_blank">
-      🎬 访问我的抖音主页
-    </a>
   </div>
 
   <div class="popup" id="popup" onclick="hidePopup()">
