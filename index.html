@@ -37,4 +37,88 @@
       background: #e60045;
     }
     main {
-      margin: 40px a
+      margin: 40px auto;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .wechat {
+      margin: 40px auto 60px;
+    }
+    .wechat img {
+      width: 200px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    /* 返回顶部按钮样式 */
+    #backToTop {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #ff0050;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.3s;
+    }
+    #backToTop:hover {
+      background-color: #e60045;
+      transform: scale(1.1);
+    }
+    @media (max-width: 480px) {
+      .wechat img { width: 140px; }
+      #backToTop { width: 44px; height: 44px; font-size: 20px; bottom: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>部分AI作品</h1>
+    <a class="btn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k"
+       target="_blank">前往抖音主页</a>
+  </header>
+
+  <main>
+    <img src="resume.png" alt="李嘉 - 新媒体运营简历">
+  </main>
+
+  <div class="wechat">
+    <img src="wechat.png" alt="微信二维码">
+  </div>
+
+  <!-- 返回顶部按钮 -->
+  <button id="backToTop" title="返回顶部">↑</button>
+
+  <script>
+    // 滚动显示返回顶部按钮
+    window.onscroll = function() {
+      const btn = document.getElementById("backToTop");
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+    // 点击滚动到顶部
+    document.getElementById("backToTop").onclick = function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+
+</body>
+</html>
