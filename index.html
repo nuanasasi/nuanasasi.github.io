@@ -3,64 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> 个人简历 </title>
+  <title>个人简历</title>
   <style>
     body {
       font-family: "Microsoft Yahei", sans-serif;
-      background: #fafafa;
+      background-color: #f5f5f5;
       margin: 0;
-      padding: 40px;
+      padding: 0;
       text-align: center;
     }
-    h1 {
-      color: #222;
-      margin-bottom: 30px;
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px 0;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     }
-    .video-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
+    header h1 {
+      margin: 0;
+      font-size: 22px;
     }
-    .video {
-      width: 300px;
-      height: 530px;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      background: #000;
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #ff0050;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
     }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .btn:hover {
+      background: #e60045;
     }
-  </style>
-</head>
-<body>
-  <h1>部分作品展示</h1>
-
-  <div class="video-container">
-    <div class="video">
-      <iframe src="https://www.douyin.com/video/7543965279940791567" allowfullscreen></iframe>
-    </div>
-    <div class="video">
-      <iframe src="https://www.douyin.com/video/7559427518495870235" allowfullscreen></iframe>
-    </div>
-    <div class="video">
-      <iframe src="https://www.douyin.com/video/7566929792520473919" allowfullscreen></iframe>
-    </div>
-    <div class="video">
-      <iframe src="https://www.douyin.com/video/7563521307216809256" allowfullscreen></iframe>
-    </div>
-    <div class="video">
-      <iframe src="https://www.douyin.com/video/7560284580419341578" allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <p style="margin-top:40px;">
-    👉 <a href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k"
-       target="_blank">查看更多作品（抖音主页）</a>
-  </p>
-</body>
-</html>
+    main {
+      margin: 40px a
