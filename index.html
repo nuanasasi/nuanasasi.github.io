@@ -14,7 +14,7 @@
       position: relative;
     }
 
-    /* 粒子画布 */
+    /* 粒子背景 */
     canvas {
       position: fixed;
       top: 0;
@@ -29,7 +29,7 @@
 
     header h1 {
       font-size: 32px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       font-weight: bold;
       letter-spacing: 2px;
     }
@@ -98,13 +98,37 @@
 
     #topBtn:hover {
       background-color: #ff3369;
+      transform: scale(1.1);
+    }
+
+    /* 音乐控制按钮 */
+    #musicBtn {
+      position: fixed;
+      bottom: 100px;
+      right: 40px;
+      z-index: 10;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    #musicBtn:hover {
+      background-color: #5aa3ff;
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
 
   <!-- 背景音乐 -->
-  <audio autoplay loop>
+  <audio id="bgm" autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
@@ -130,13 +154,33 @@
   <!-- 返回顶部按钮 -->
   <button id="topBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">↑</button>
 
+  <!-- 音乐开关按钮 -->
+  <button id="musicBtn" title="开关背景音乐">🎵</button>
+
   <script>
+    // 背景音乐控制
+    const music = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
+    let musicOn = true;
+
+    musicBtn.addEventListener("click", () => {
+      if (musicOn) {
+        music.pause();
+        musicBtn.textContent = "🔇";
+      } else {
+        music.play();
+        musicBtn.textContent = "🎵";
+      }
+      musicOn = !musicOn;
+    });
+
+    // 粒子效果
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     let particlesArray = [];
-    const particleCount = 200; // 粒子数量
+    const particleCount = 200;
     let mouseForce = { x: 0, y: 0 };
-    
+
     canvas.width = innerWidth;
     canvas.height = innerHeight;
 
@@ -158,15 +202,10 @@
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        
-        // 边界碰撞
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-        // 鼠标滚动力
         this.x += mouseForce.x * 0.1;
         this.y += mouseForce.y * 0.1;
-
         this.draw();
       }
     }
@@ -179,7 +218,7 @@
         const y = Math.random() * canvas.height;
         const speedX = (Math.random() - 0.5) * 2;
         const speedY = (Math.random() - 0.5) * 2;
-        const color = "rgba(120,150,255,0.8)";
+        const color = "rgba(100,140,255,0.9)";
         particlesArray.push(new Particle(x, y, size, color, speedX, speedY));
       }
     }
@@ -190,7 +229,6 @@
       requestAnimationFrame(animate);
     }
 
-    // 滚动给粒子施力
     window.addEventListener("scroll", e => {
       mouseForce.y = window.scrollY / 1000;
     });
