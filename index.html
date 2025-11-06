@@ -5,204 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>李嘉 · 新媒体运营简历</title>
   <style>
+    /* 背景与全局设置 */
     body {
       margin: 0;
-      font-family: "Microsoft Yahei", sans-serif;
+      font-family: "Microsoft YaHei", sans-serif;
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
       color: #333;
-      text-align: center;
-      background: #fff;
       overflow-x: hidden;
+      position: relative;
+      text-align: center;
     }
-    /* 背景 canvas 占满全屏 */
-    #bgCanvas {
+
+    /* 柔光粒子动画 */
+    .background {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      overflow: hidden;
       z-index: -1;
     }
-    header {
-      background: transparent;
-      padding: 30px 0 10px;
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: float 12s infinite ease-in-out;
     }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.9; }
+      50% { transform: translateY(-60px) scale(1.3); opacity: 0.5; }
+      100% { transform: translateY(0) scale(1); opacity: 0.9; }
+    }
+
+    /* 标题 */
     header h1 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 600;
+      font-size: 2em;
+      margin: 30px 0 10px;
+      color: #222;
     }
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 22px;
-      background: #ff0050;
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
+    header p {
+      color: #666;
+      font-size: 1em;
+      margin-bottom: 30px;
     }
-    .btn:hover {
-      background: #e60045;
-    }
-    main {
-      margin: 40px auto;
-      max-width: 800px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      overflow: hidden;
-      backdrop-filter: blur(5px);
-    }
+
+    /* 简历图片 */
     img {
-      width: 100%;
+      max-width: 90%;
       height: auto;
-      display: block;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 40px;
     }
+
+    /* 微信二维码区域 */
     .wechat {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 40px auto 60px;
+      margin-bottom: 60px;
     }
     .wechat img {
-      width: 200px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.3s;
+      width: 180px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    .wechat img:hover {
-      transform: scale(1.05);
-    }
-    .overlay {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
-    .overlay img {
-      width: 80%;
-      max-width: 400px;
-      border-radius: 16px;
-    }
+
+    /* 返回顶部按钮 */
     #backToTop {
-      display: none;
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #ff0050;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
       color: white;
       border: none;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 22px;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s;
     }
     #backToTop:hover {
-      background-color: #e60045;
-      transform: scale(1.1);
-    }
-    @media (max-width: 480px) {
-      .wechat img { width: 140px; }
-      #backToTop { width: 44px; height: 44px; font-size: 20px; bottom: 20px; right: 20px; }
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-
-  <canvas id="bgCanvas"></canvas>
+  <div class="background"></div>
 
   <header>
-    <h1>李嘉 · 新媒体运营作品与简历</h1>
-    <a class="btn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k"
-       target="_blank">前往抖音主页</a>
+    <h1>李嘉 · 新媒体运营</h1>
+    <p>作品集与简历展示</p>
   </header>
 
-  <main>
-    <img src="resume.png" alt="李嘉 - 新媒体运营简历">
-  </main>
+  <img src="resume.png" alt="李嘉个人简历">
 
   <div class="wechat">
-    <img src="wechat.png" alt="微信二维码" id="wechatImg">
-  </div>
-
-  <div class="overlay" id="overlay">
     <img src="wechat.png" alt="微信二维码">
   </div>
 
-  <button id="backToTop" title="返回顶部">↑</button>
+  <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
   <script>
-    // 背景粒子动画
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let w, h;
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
+    // 动态粒子背景生成
+    const background = document.querySelector('.background');
+    for (let i = 0; i < 25; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.top = Math.random() * 100 + 'vh';
+      particle.style.animationDelay = (Math.random() * 10) + 's';
+      background.appendChild(particle);
     }
-    window.addEventListener('resize', resize);
-    resize();
-
-    const particles = [];
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 1,
-        dy: (Math.random() - 0.5) * 1,
-      });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "rgba(255,255,255,0.5)";
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > w) p.dx *= -1;
-        if (p.y < 0 || p.y > h) p.dy *= -1;
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    // 返回顶部按钮
-    window.onscroll = function() {
-      const btn = document.getElementById("backToTop");
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        btn.style.display = "block";
-      } else {
-        btn.style.display = "none";
-      }
-    };
-    document.getElementById("backToTop").onclick = function() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    // 二维码放大
-    const overlay = document.getElementById('overlay');
-    document.getElementById('wechatImg').onclick = function() {
-      overlay.style.display = 'flex';
-    };
-    overlay.onclick = function() {
-      overlay.style.display = 'none';
-    };
   </script>
 </body>
 </html>
