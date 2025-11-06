@@ -8,36 +8,20 @@
     body {
       margin: 0;
       font-family: "Microsoft YaHei", sans-serif;
-      background: radial-gradient(circle at top, #d7e1ec 0%, #f0f3f7 40%, #cbd5e0 100%);
+      background: radial-gradient(circle at top, #e8ebf2 0%, #d8dde7 100%);
       color: #333;
       overflow-x: hidden;
       text-align: center;
       position: relative;
     }
 
-    /* 动态粒子 */
-    .background {
+    canvas {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      overflow: hidden;
       z-index: -1;
     }
-    .particle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: rgba(173, 216, 230, 0.8);
-      border-radius: 50%;
-      animation: float 10s infinite ease-in-out;
-    }
-    @keyframes float {
-      0% { transform: translateY(0) scale(1); opacity: 0.9; }
-      50% { transform: translateY(-80px) scale(1.4); opacity: 0.5; }
-      100% { transform: translateY(0) scale(1); opacity: 0.9; }
-    }
 
-    /* 标题 */
     header h1 {
       font-size: 2em;
       margin: 30px 0 10px;
@@ -49,7 +33,6 @@
       margin-bottom: 30px;
     }
 
-    /* 简历图片 */
     img {
       max-width: 90%;
       height: auto;
@@ -58,9 +41,8 @@
       margin-bottom: 40px;
     }
 
-    /* 微信二维码 */
     .wechat {
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
     .wechat img {
       width: 220px;
@@ -73,7 +55,24 @@
       transform: scale(1.05);
     }
 
-    /* 弹出放大二维码 */
+    .douyin {
+      margin-bottom: 60px;
+    }
+    .douyin a {
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(90deg, #ff0050, #7000ff);
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .douyin a:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+
     .popup {
       display: none;
       position: fixed;
@@ -90,7 +89,6 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
 
-    /* 返回顶部按钮 */
     #backToTop {
       position: fixed;
       bottom: 25px;
@@ -105,6 +103,7 @@
       cursor: pointer;
       box-shadow: 0 3px 10px rgba(0,0,0,0.3);
       transition: background 0.3s;
+      z-index: 999;
     }
     #backToTop:hover {
       background-color: #555;
@@ -112,17 +111,23 @@
   </style>
 </head>
 <body>
-  <div class="background"></div>
+  <canvas id="particleCanvas"></canvas>
 
   <header>
     <h1>李嘉 · 新媒体运营</h1>
     <p>作品集与简历展示</p>
   </header>
 
-  <img src="resume.png" alt="李嘉个人简历">
+  <img id="resumeImg" src="resume.png" alt="李嘉个人简历">
 
   <div class="wechat">
-    <img src="wechat.png" alt="微信二维码" onclick="showPopup()">
+    <img id="wechatImg" src="wechat.png" alt="微信二维码" onclick="showPopup()">
+  </div>
+
+  <div class="douyin">
+    <a id="douyinBtn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k" target="_blank">
+      🎬 访问我的抖音主页
+    </a>
   </div>
 
   <div class="popup" id="popup" onclick="hidePopup()">
@@ -132,19 +137,94 @@
   <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
   <script>
-    // 粒子动画
-    const background = document.querySelector('.background');
-    for (let i = 0; i < 30; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.top = Math.random() * 100 + 'vh';
-      p.style.animationDelay = (Math.random() * 8) + 's';
-      p.style.width = p.style.height = (6 + Math.random() * 8) + 'px';
-      background.appendChild(p);
+    // --- 粒子系统 ---
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let scrollForce = 0;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const numParticles = 180; // 粒子数量更多
+    const colors = ["#5b6ee1", "#8a9cfb", "#3a48b3", "#9caeff"];
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = (Math.random() - 0.5) * 1.2;
+        this.size = Math.random() * 3 + 2;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy + scrollForce * 0.05;
+
+        const resume = document.getElementById("resumeImg").getBoundingClientRect();
+        const wechat = document.getElementById("wechatImg").getBoundingClientRect();
+        const douyin = document.getElementById("douyinBtn").getBoundingClientRect();
+
+        const px = this.x;
+        const py = this.y;
+
+        const checkCollision = (rect) => {
+          const withinX = px > rect.left && px < rect.right;
+          const withinY = py > rect.top && py < rect.bottom;
+          if (withinX && withinY) {
+            this.vx *= -1.1;
+            this.vy *= -1.1;
+            this.x += this.vx * 5;
+            this.y += this.vy * 5;
+          }
+        };
+
+        checkCollision(resume);
+        checkCollision(wechat);
+        checkCollision(douyin);
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
     }
 
-    // 二维码放大逻辑
+    for (let i = 0; i < numParticles; i++) {
+      particles.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        p.update();
+        p.draw();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 滚动时施加粒子力
+    let lastScroll = window.scrollY;
+    window.addEventListener("scroll", () => {
+      const newScroll = window.scrollY;
+      scrollForce = Math.max(-3, Math.min(3, (newScroll - lastScroll) * 0.3));
+      lastScroll = newScroll;
+    });
+
+    // 二维码放大弹窗
     function showPopup() {
       document.getElementById("popup").style.display = "flex";
     }
