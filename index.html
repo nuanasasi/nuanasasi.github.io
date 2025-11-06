@@ -6,18 +6,25 @@
   <title>李嘉 · 新媒体运营简历</title>
   <style>
     body {
-      font-family: "Microsoft Yahei", sans-serif;
-      background-color: #fff;
       margin: 0;
-      padding: 0;
-      text-align: center;
+      font-family: "Microsoft Yahei", sans-serif;
       color: #333;
+      text-align: center;
+      background: #fff;
+      overflow-x: hidden;
+    }
+    /* 背景 canvas 占满全屏 */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
     header {
-      background: #fff;
-      color: #333;
+      background: transparent;
       padding: 30px 0 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     header h1 {
       margin: 0;
@@ -41,17 +48,17 @@
     main {
       margin: 40px auto;
       max-width: 800px;
-      background: #fff;
+      background: rgba(255,255,255,0.9);
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       overflow: hidden;
+      backdrop-filter: blur(5px);
     }
     img {
       width: 100%;
       height: auto;
       display: block;
     }
-    /* 微信二维码区域 */
     .wechat {
       display: flex;
       justify-content: center;
@@ -69,7 +76,6 @@
     .wechat img:hover {
       transform: scale(1.05);
     }
-    /* 放大预览遮罩 */
     .overlay {
       display: none;
       position: fixed;
@@ -86,9 +92,7 @@
       width: 80%;
       max-width: 400px;
       border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(255,255,255,0.2);
     }
-    /* 返回顶部按钮样式 */
     #backToTop {
       display: none;
       position: fixed;
@@ -117,6 +121,8 @@
 </head>
 <body>
 
+  <canvas id="bgCanvas"></canvas>
+
   <header>
     <h1>李嘉 · 新媒体运营作品与简历</h1>
     <a class="btn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k"
@@ -131,16 +137,52 @@
     <img src="wechat.png" alt="微信二维码" id="wechatImg">
   </div>
 
-  <!-- 放大预览 -->
   <div class="overlay" id="overlay">
     <img src="wechat.png" alt="微信二维码">
   </div>
 
-  <!-- 返回顶部按钮 -->
   <button id="backToTop" title="返回顶部">↑</button>
 
   <script>
-    // 显示/隐藏返回顶部按钮
+    // 背景粒子动画
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 1,
+        dy: (Math.random() - 0.5) * 1,
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > w) p.dx *= -1;
+        if (p.y < 0 || p.y > h) p.dy *= -1;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // 返回顶部按钮
     window.onscroll = function() {
       const btn = document.getElementById("backToTop");
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -149,13 +191,11 @@
         btn.style.display = "none";
       }
     };
-
-    // 点击返回顶部
     document.getElementById("backToTop").onclick = function() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    // 点击二维码放大预览
+    // 二维码放大
     const overlay = document.getElementById('overlay');
     document.getElementById('wechatImg').onclick = function() {
       overlay.style.display = 'flex';
@@ -164,6 +204,5 @@
       overlay.style.display = 'none';
     };
   </script>
-
 </body>
 </html>
