@@ -24,7 +24,7 @@
 
     header h1 {
       font-size: 2em;
-      margin: 30px 0 50px; /* 增加与按钮的间距 */
+      margin: 30px 0 35px; /* 调整标题与按钮间距 */
       color: #1a1a1a;
     }
 
@@ -51,14 +51,14 @@
     }
 
     .douyin {
-      margin-top: 10px;
-      margin-bottom: 60px;
+      margin-top: 0px;  /* 调小按钮上间距 */
+      margin-bottom: 45px; /* 调小下间距 */
     }
     .douyin a {
       text-decoration: none;
       color: white;
       background: linear-gradient(90deg, #ff0050, #7000ff);
-      padding: 10px 24px; /* 调小按钮 */
+      padding: 10px 24px;
       border-radius: 30px;
       font-size: 1em;
       transition: all 0.3s ease;
@@ -123,8 +123,8 @@
 <body>
   <canvas id="particleCanvas"></canvas>
 
-  <!-- 背景音乐 -->
-  <audio id="bgMusic" autoplay loop>
+  <!-- 背景音乐（不自动播放） -->
+  <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
@@ -154,14 +154,14 @@
     // --- 音乐控制 ---
     const music = document.getElementById("bgMusic");
     const musicToggle = document.getElementById("musicToggle");
-    let playing = true;
+    let playing = false;
     musicToggle.addEventListener("click", () => {
       if (playing) {
         music.pause();
-        musicToggle.textContent = "🔇";
+        musicToggle.textContent = "🎵";
       } else {
         music.play();
-        musicToggle.textContent = "🎵";
+        musicToggle.textContent = "⏸️";
       }
       playing = !playing;
     });
