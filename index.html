@@ -12,19 +12,18 @@
       overflow-x: hidden;
       background: radial-gradient(circle at 30% 20%, #f7f9fc, #dfe6f0);
       position: relative;
-      height: 100%;
       color: #222;
     }
     header {
       text-align: center;
-      padding: 30px 0 10px;
+      padding: 40px 0 10px;
       position: relative;
       z-index: 2;
     }
     header h1 {
       font-size: 26px;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .btn {
       display: inline-block;
@@ -41,7 +40,7 @@
     }
     main {
       max-width: 800px;
-      margin: 50px auto;
+      margin: 40px auto 80px;
       text-align: center;
       position: relative;
       z-index: 2;
@@ -60,6 +59,7 @@
       margin-top: 30px;
       width: 160px;
       cursor: pointer;
+      transition: transform 0.3s;
     }
     #wechat:hover {
       transform: scale(1.2);
@@ -105,7 +105,7 @@
     resize();
 
     const numParticles = 180;
-    const particleColor = "#556677";
+    const particleColor = "#445566";
 
     class Particle {
       constructor() {
@@ -114,35 +114,28 @@
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 1.5;
-        this.vy = (Math.random() - 0.5) * 1.5;
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = (Math.random() - 0.5) * 1.2;
         this.size = Math.random() * 3 + 1;
       }
       update() {
         this.x += this.vx;
         this.y += this.vy;
-
-        // 边界反弹
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        // 简历图范围
+        // 碰撞检测
         const resume = document.querySelector("main img[alt='李嘉简历']");
         const wechat = document.getElementById("wechat");
         const douyinBtn = document.querySelector(".btn");
-
         const collideWith = [resume, wechat, douyinBtn];
+
         for (const el of collideWith) {
           if (!el) continue;
           const rect = el.getBoundingClientRect();
-          if (
-            this.x > rect.left &&
-            this.x < rect.right &&
-            this.y > rect.top &&
-            this.y < rect.bottom
-          ) {
-            this.vx *= -1.2;
-            this.vy *= -1.2;
+          if (this.x > rect.left && this.x < rect.right && this.y > rect.top && this.y < rect.bottom) {
+            this.vx *= -1.1;
+            this.vy *= -1.1;
           }
         }
       }
@@ -172,13 +165,14 @@
     }
     animate();
 
-    // 滚动时对粒子施加力
-    window.addEventListener("scroll", (e) => {
-      const scrollSpeed = e.deltaY || window.scrollY / 50;
+    // 滚动时施加力
+    window.addEventListener("scroll", () => {
+      const direction = window.scrollY - (this.lastScrollY || 0);
       for (let p of particles) {
-        p.vy += scrollSpeed * 0.01;
+        p.vy += direction * 0.001;
       }
-    }, { passive: true });
+      this.lastScrollY = window.scrollY;
+    });
   </script>
 </body>
 </html>
