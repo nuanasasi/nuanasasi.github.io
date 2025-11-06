@@ -3,211 +3,167 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>李嘉 · 新媒体运营简历</title>
+  <title>李嘉 · 作品集与简历展示</title>
   <style>
     body {
+      font-family: "Microsoft Yahei", sans-serif;
       margin: 0;
-      font-family: "Microsoft YaHei", sans-serif;
-      background: radial-gradient(circle at top, #e8ebf2 0%, #d8dde7 100%);
-      color: #333;
+      padding: 0;
       overflow-x: hidden;
+      background: radial-gradient(circle at 30% 20%, #f7f9fc, #dfe6f0);
+      position: relative;
+      height: 100%;
+      color: #222;
+    }
+    header {
+      text-align: center;
+      padding: 30px 0 10px;
+      position: relative;
+      z-index: 2;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #ff0050;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #e60045;
+    }
+    main {
+      max-width: 800px;
+      margin: 50px auto;
       text-align: center;
       position: relative;
+      z-index: 2;
     }
-
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-    }
-
-    header h1 {
-      font-size: 2em;
-      margin: 30px 0 10px;
-      color: #1a1a1a;
-    }
-    header p {
-      color: #555;
-      font-size: 1em;
-      margin-bottom: 30px;
-    }
-
     img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      margin-bottom: 40px;
-    }
-
-    .wechat {
-      margin-bottom: 40px;
-    }
-    .wechat img {
-      width: 220px;
+      width: 100%;
+      max-width: 800px;
       border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    img:hover {
+      transform: scale(1.02);
+    }
+    #wechat {
+      margin-top: 30px;
+      width: 160px;
       cursor: pointer;
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
-    .wechat img:hover {
-      transform: scale(1.05);
+    #wechat:hover {
+      transform: scale(1.2);
     }
-
-    .douyin {
-      margin-bottom: 60px;
-    }
-    .douyin a {
-      text-decoration: none;
-      color: white;
-      background: linear-gradient(90deg, #ff0050, #7000ff);
-      padding: 12px 30px;
-      border-radius: 30px;
-      font-size: 1.1em;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-    .douyin a:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    }
-
-    .popup {
-      display: none;
+    #particles {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .popup img {
-      width: 400px;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    }
-
-    #backToTop {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 22px;
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s;
-      z-index: 999;
-    }
-    #backToTop:hover {
-      background-color: #555;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <canvas id="particleCanvas"></canvas>
+  <canvas id="particles"></canvas>
 
   <header>
-    <h1>李嘉 · 新媒体运营</h1>
-    <p>作品集与简历展示</p>
+    <h1>李嘉 · 作品集与简历展示</h1>
+    <a class="btn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k" target="_blank">
+      抖音主页
+    </a>
   </header>
 
-  <img id="resumeImg" src="resume.png" alt="李嘉个人简历">
-
-  <div class="wechat">
-    <img id="wechatImg" src="wechat.png" alt="微信二维码" onclick="showPopup()">
-  </div>
-
-  <div class="douyin">
-    <a id="douyinBtn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k" target="_blank">
-      🎬 访问我的抖音主页
-    </a>
-  </div>
-
-  <div class="popup" id="popup" onclick="hidePopup()">
-    <img src="wechat.png" alt="微信二维码放大图">
-  </div>
-
-  <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+  <main>
+    <img src="resume.png" alt="李嘉简历">
+    <br>
+    <img id="wechat" src="wechat.png" alt="微信二维码">
+  </main>
 
   <script>
-    // --- 粒子系统 ---
-    const canvas = document.getElementById("particleCanvas");
+    const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     let particles = [];
-    let scrollForce = 0;
+    let width, height;
 
     function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     }
     window.addEventListener("resize", resize);
     resize();
 
-    const numParticles = 180; // 粒子数量更多
-    const colors = ["#5b6ee1", "#8a9cfb", "#3a48b3", "#9caeff"];
+    const numParticles = 180;
+    const particleColor = "#556677";
 
     class Particle {
       constructor() {
         this.reset();
       }
       reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 1.2;
-        this.vy = (Math.random() - 0.5) * 1.2;
-        this.size = Math.random() * 3 + 2;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
+        this.size = Math.random() * 3 + 1;
       }
       update() {
         this.x += this.vx;
-        this.y += this.vy + scrollForce * 0.05;
+        this.y += this.vy;
 
-        const resume = document.getElementById("resumeImg").getBoundingClientRect();
-        const wechat = document.getElementById("wechatImg").getBoundingClientRect();
-        const douyin = document.getElementById("douyinBtn").getBoundingClientRect();
+        // 边界反弹
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        const px = this.x;
-        const py = this.y;
+        // 简历图范围
+        const resume = document.querySelector("main img[alt='李嘉简历']");
+        const wechat = document.getElementById("wechat");
+        const douyinBtn = document.querySelector(".btn");
 
-        const checkCollision = (rect) => {
-          const withinX = px > rect.left && px < rect.right;
-          const withinY = py > rect.top && py < rect.bottom;
-          if (withinX && withinY) {
-            this.vx *= -1.1;
-            this.vy *= -1.1;
-            this.x += this.vx * 5;
-            this.y += this.vy * 5;
+        const collideWith = [resume, wechat, douyinBtn];
+        for (const el of collideWith) {
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (
+            this.x > rect.left &&
+            this.x < rect.right &&
+            this.y > rect.top &&
+            this.y < rect.bottom
+          ) {
+            this.vx *= -1.2;
+            this.vy *= -1.2;
           }
-        };
-
-        checkCollision(resume);
-        checkCollision(wechat);
-        checkCollision(douyin);
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
       }
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = particleColor;
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < numParticles; i++) {
-      particles.push(new Particle());
+    function init() {
+      particles = [];
+      for (let i = 0; i < numParticles; i++) {
+        particles.push(new Particle());
+      }
     }
+    init();
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, width, height);
       for (let p of particles) {
         p.update();
         p.draw();
@@ -216,21 +172,13 @@
     }
     animate();
 
-    // 滚动时施加粒子力
-    let lastScroll = window.scrollY;
-    window.addEventListener("scroll", () => {
-      const newScroll = window.scrollY;
-      scrollForce = Math.max(-3, Math.min(3, (newScroll - lastScroll) * 0.3));
-      lastScroll = newScroll;
-    });
-
-    // 二维码放大弹窗
-    function showPopup() {
-      document.getElementById("popup").style.display = "flex";
-    }
-    function hidePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
+    // 滚动时对粒子施加力
+    window.addEventListener("scroll", (e) => {
+      const scrollSpeed = e.deltaY || window.scrollY / 50;
+      for (let p of particles) {
+        p.vy += scrollSpeed * 0.01;
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
