@@ -27,43 +27,17 @@
       margin: 30px 0 10px;
       color: #1a1a1a;
     }
-    header p {
-      color: #555;
-      font-size: 1em;
-      margin-bottom: 15px;
-    }
 
-    /* 抖音主页按钮放到标题下方 */
-    .douyin-top {
-      margin-bottom: 30px;
-    }
-    .douyin-top a {
-      text-decoration: none;
-      color: white;
-      background: linear-gradient(90deg, #ff0050, #7000ff);
-      padding: 12px 30px;
-      border-radius: 30px;
-      font-size: 1.1em;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-    .douyin-top a:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    }
-
-    /* 简历图片放大 */
     img {
-      max-width: 95%;
+      max-width: 90%;
       height: auto;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       margin-bottom: 40px;
     }
 
-    /* 微信二维码放大并保持居中 */
     .wechat {
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
     .wechat img {
       width: 260px;
@@ -74,6 +48,24 @@
     }
     .wechat img:hover {
       transform: scale(1.05);
+    }
+
+    .douyin {
+      margin-bottom: 30px;
+    }
+    .douyin a {
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(90deg, #ff0050, #7000ff);
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .douyin a:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
     }
 
     .popup {
@@ -118,8 +110,7 @@
 
   <header>
     <h1>李嘉 · 新媒体运营</h1>
-    <p>作品集与简历展示</p>
-    <div class="douyin-top">
+    <div class="douyin">
       <a id="douyinBtn" href="https://www.douyin.com/user/MS4wLjABAAAAUzcAVPl7xFZHoRF5XrPQrT26DFWxmLabtkF_VQfq4gGib1vCK-2yXUn4gLqA6s7k" target="_blank">
         🎬 访问我的抖音主页
       </a>
@@ -152,7 +143,7 @@
     window.addEventListener("resize", resize);
     resize();
 
-    const numParticles = 180; // 粒子数量更多
+    const numParticles = 180;
     const colors = ["#5b6ee1", "#8a9cfb", "#3a48b3", "#9caeff"];
 
     class Particle {
